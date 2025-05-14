@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook Bot - Panel de Control</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fab fa-facebook"></i> Facebook Bot
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <!-- Panel de Login -->
+        <div id="loginPanel" class="card">
+            <div class="card-body">
+                <h5 class="card-title">Iniciar Sesión con Facebook</h5>
+                <p class="card-text">Conecta tu cuenta de Facebook para comenzar a usar el bot.</p>
+                <button class="btn btn-primary" onclick="loginWithFacebook()">
+                    <i class="fab fa-facebook"></i> Conectar con Facebook
+                </button>
+            </div>
+        </div>
+
+        <!-- Panel Principal (oculto inicialmente) -->
+        <div id="mainPanel" style="display: none;">
+            <div class="row">
+                <!-- Panel de Publicación -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Publicar en Grupos</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="postForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Contenido</label>
+                                    <textarea class="form-control" id="postContent" rows="3"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Grupos</label>
+                                    <select class="form-select" id="groupSelect" multiple>
+                                        <!-- Los grupos se cargarán dinámicamente -->
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Archivos Multimedia</label>
+                                    <input type="file" class="form-control" id="mediaFiles" multiple>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Publicar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Búsqueda -->
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Buscar Clientes</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="searchForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Ubicación</label>
+                                    <input type="text" class="form-control" id="location" placeholder="Ej: Zona Oeste">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Radio (km)</label>
+                                    <input type="number" class="form-control" id="radius" value="10">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> Buscar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Campañas -->
+                <div class="col-md-12 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Campañas</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <form id="campaignForm">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nombre de la Campaña</label>
+                                            <input type="text" class="form-control" id="campaignName">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Objetivo</label>
+                                            <select class="form-select" id="campaignObjective">
+                                                <option value="CONVERSIONS">Conversiones</option>
+                                                <option value="REACH">Alcance</option>
+                                                <option value="ENGAGEMENT">Interacción</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Presupuesto</label>
+                                            <input type="number" class="form-control" id="campaignBudget">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-plus"></i> Crear Campaña
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="table-responsive">
+                                        <table class="table" id="campaignsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Objetivo</th>
+                                                    <th>Estado</th>
+                                                    <th>Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Las campañas se cargarán dinámicamente -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
