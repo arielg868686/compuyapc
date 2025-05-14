@@ -385,4 +385,4 @@ function showError(message) {
     alert.textContent = message;
     document.querySelector('.container').insertBefore(alert, document.querySelector('.card'));
     setTimeout(() => alert.remove(), 5000);
-}
+} 
