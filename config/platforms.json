@@ -1,0 +1,29 @@
+{
+    "facebook": {
+        "initialized": false,
+        "pages": {
+            "main": {
+                "id": "tu_id_pagina_facebook",
+                "type": "business"
+            }
+        }
+    },
+    "instagram": {
+        "initialized": false
+    },
+    "tiktok": {
+        "initialized": false
+    },
+    "twitter": {
+        "initialized": false
+    },
+    "telegram": {
+        "initialized": false
+    },
+    "whatsapp": {
+        "main": {
+            "number": "tu_numero_whatsapp",
+            "defaultMessage": "Hola, me gustaría obtener más información"
+        }
+    }
+} 
